@@ -1,0 +1,26 @@
+Intensity - time traces are extracted for all regions-of-interest in a fluorescence recording video. 
+Briefly, the following routine is applied in ImageJ.
+  Fluorescence regions-of-interest are identified by taking a Z-project>Maximum Intensity of the image stack. 
+  The resulting single frame is thresholded and regions-of-interest are dilated. 
+  "Analyze Particles" adds all of the identified regions-of-interest to the ROI manager.
+  Application of a simple ImageJ script results in a folder of .csv files with the Intensity-time profile of all regions-of-interest:
+  
+      dir1 = getDirectory("Choose Source Directory "); //select save file
+
+      title=getTitle(); //creates a variable which tells the computer where to pull Z-axis profiles from
+
+      count=roiManager("count"); //creates a variable by which to terminate the for loop below
+
+
+      //This section iterates over the ROIs in the ROImanager and saves a Z-axis profile as .csv
+      for(j=0;j<count;j++){
+		      selectWindow(title);
+		      roiManager("Select", j);
+		      run( "Plot Z-axis Profile" );
+		      Plot.getValues( x,y );
+		      lt = x.length;
+		      str = "";
+		      for (i = 0; i < x.length; i++ ) {
+			       str += "" + x[i] + "," + y[i] + "\n"; }
+		         File.saveString( str, getDirectory("current") + "ROI" + j + ".csv" );	
+	     }
