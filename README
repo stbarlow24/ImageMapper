@@ -24,3 +24,9 @@ Briefly, the following routine is applied in ImageJ.
 			       str += "" + x[i] + "," + y[i] + "\n"; }
 		         File.saveString( str, getDirectory("current") + "ROI" + j + ".csv" );	
 	     }
+	     
+	     
+A post-batch rename was applied to the folder to normalize the data import.
+
+The peak detection algorithm used to identify events within intensity-time traces is from the following Stack Exchange answer:
+https://stackoverflow.com/questions/22583391/peak-signal-detection-in-realtime-timeseries-data
